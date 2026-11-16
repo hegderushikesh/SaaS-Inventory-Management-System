@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Package,
+  ArrowLeftRight,
   Settings,
   LogOut,
   X,
@@ -41,6 +42,7 @@ export const Sidebar = ({
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Products', path: '/products', icon: Package },
+    { name: 'Stock Movements', path: '/stock-movements', icon: ArrowLeftRight },
     { name: 'Settings', path: '/settings', icon: Settings }
   ];
 

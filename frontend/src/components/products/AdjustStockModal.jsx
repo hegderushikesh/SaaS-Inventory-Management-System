@@ -39,7 +39,9 @@ export const AdjustStockModal = ({
     mutationFn: (data) => productApi.adjustStock(product.id, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['dashboardSummary'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard-summary'] });
       queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: ['stock-movements'] });
       toast.success(
         `Stock updated for ${product.name}! New level: ${response.data.quantity_on_hand} units.`
       );

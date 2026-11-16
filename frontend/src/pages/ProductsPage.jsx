@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Package,
   Plus,
@@ -9,7 +10,8 @@ import {
   Trash2,
   AlertCircle,
   RefreshCw,
-  Filter
+  Filter,
+  History
 } from 'lucide-react';
 
 import { useProducts } from '../hooks/useProducts';
@@ -142,13 +144,12 @@ export const ProductsPage = () => {
         return (
           <div>
             <span
-              className={`font-semibold text-sm ${
-                row.quantity_on_hand === 0
+              className={`font-semibold text-sm ${row.quantity_on_hand === 0
                   ? 'text-red-600'
                   : row.quantity_on_hand <= effectiveThreshold
-                  ? 'text-amber-700'
-                  : 'text-slate-800'
-              }`}
+                    ? 'text-amber-700'
+                    : 'text-slate-800'
+                }`}
             >
               {row.quantity_on_hand} {row.quantity_on_hand === 1 ? 'unit' : 'units'}
             </span>
@@ -204,6 +205,14 @@ export const ProductsPage = () => {
           >
             Adjust
           </Button>
+
+          <Link
+            to={`/stock-movements?product_id=${row.id}`}
+            className="p-1.5 h-8 w-8 inline-flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            title="View stock movement history"
+          >
+            <History className="w-4 h-4" />
+          </Link>
 
           <Button
             variant="ghost"
@@ -362,12 +371,12 @@ export const ProductsPage = () => {
           pagination={
             pagination
               ? {
-                  page: pagination.page,
-                  limit: pagination.limit,
-                  total: pagination.total,
-                  totalPages: pagination.totalPages,
-                  onPageChange: (newPage) => setCurrentPage(newPage)
-                }
+                page: pagination.page,
+                limit: pagination.limit,
+                total: pagination.total,
+                totalPages: pagination.totalPages,
+                onPageChange: (newPage) => setCurrentPage(newPage)
+              }
               : null
           }
           sorting={{

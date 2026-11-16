@@ -79,6 +79,10 @@ app.use('/api/dashboard', dashboardRoutes);
 const settingsRoutes = require('./routes/settingsRoutes');
 app.use('/api/settings', settingsRoutes);
 
+// Stock Movement routes
+const stockMovementRoutes = require('./routes/stockMovementRoutes');
+app.use('/api/stock-movements', stockMovementRoutes);
+
 // App-level 404 & error handlers
 app.use(notFoundHandler);
 app.use(errorHandler);

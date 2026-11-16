@@ -11,7 +11,7 @@ class ProductController {
    */
   static async createProduct(req, res, next) {
     try {
-      const product = await ProductService.createProduct(req.organizationId, req.body);
+      const product = await ProductService.createProduct(req.organizationId, req.body, req.userId);
       return successResponse(res, {
         statusCode: 201,
         message: 'Product created successfully',
@@ -63,7 +63,7 @@ class ProductController {
    */
   static async updateProduct(req, res, next) {
     try {
-      const product = await ProductService.updateProduct(req.organizationId, req.params.id, req.body);
+      const product = await ProductService.updateProduct(req.organizationId, req.params.id, req.body, req.userId);
       return successResponse(res, {
         statusCode: 200,
         message: 'Product updated successfully',
@@ -97,12 +97,15 @@ class ProductController {
    */
   static async adjustStock(req, res, next) {
     try {
-      const result = await ProductService.adjustStock(req.organizationId, req.params.id, req.body);
+      const result = await ProductService.adjustStock(req.organizationId, req.params.id, req.body, req.userId);
       return successResponse(res, {
         statusCode: 200,
         message: 'Stock quantity updated successfully',
         data: result.product,
-        meta: result.adjustment
+        meta: {
+          ...result.adjustment,
+          movement_id: result.movement ? result.movement.id : null
+        }
       });
     } catch (error) {
       next(error);
