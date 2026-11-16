@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 import { authApi } from '../api/authApi';
 
 /**
@@ -29,6 +30,7 @@ import { authApi } from '../api/authApi';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const queryClient = useQueryClient();
   const [user, setUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem('stockflow_user');
@@ -89,6 +91,7 @@ export const AuthProvider = ({ children }) => {
       setToken(null);
       setUser(null);
       setOrganization(null);
+      queryClient.clear();
       toast.error('Session expired. Please log in again.');
     };
 
@@ -165,6 +168,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('stockflow_token');
     localStorage.removeItem('stockflow_user');
     localStorage.removeItem('stockflow_org');
+    queryClient.clear();
     setToken(null);
     setUser(null);
     setOrganization(null);

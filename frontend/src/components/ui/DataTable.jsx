@@ -16,7 +16,7 @@ export const DataTable = ({
   className = ''
 }) => {
   if (isLoading) {
-    return <TableSkeleton rows={pagination?.limit || 5} cols={columns.length || 4} />;
+    return <TableSkeleton rows={pagination?.limit || 5} cols={columns.length || 5} />;
   }
 
   if (!data || data.length === 0) {
@@ -45,11 +45,11 @@ export const DataTable = ({
   const endRecord = pagination ? Math.min(pagination.page * pagination.limit, pagination.total) : data.length;
 
   return (
-    <div className={`bg-white border border-slate-200/90 rounded-xl shadow-xs overflow-hidden flex flex-col ${className}`}>
-      <div className="overflow-x-auto">
+    <div className={`bg-white border border-slate-200/80 rounded-xl shadow-xs overflow-hidden flex flex-col ${className}`}>
+      <div className="overflow-x-auto min-w-full">
         <table className="w-full text-left text-sm border-collapse">
           <thead>
-            <tr className="border-b border-slate-200/80 bg-slate-50/75">
+            <tr className="border-b border-slate-200/80 bg-slate-50/70">
               {columns.map((col) => {
                 const isSorted = sorting && sorting.sortBy === col.key;
                 return (
@@ -57,7 +57,7 @@ export const DataTable = ({
                     key={col.key}
                     scope="col"
                     onClick={() => handleSort(col.key, col.sortable)}
-                    className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 select-none ${
+                    className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 select-none whitespace-nowrap ${
                       col.sortable ? 'cursor-pointer hover:text-slate-800' : ''
                     } ${col.headerClassName || ''}`}
                   >
@@ -91,7 +91,7 @@ export const DataTable = ({
                 {columns.map((col) => (
                   <td
                     key={col.key}
-                    className={`px-4 py-3 text-sm whitespace-nowrap ${col.className || ''}`}
+                    className={`px-4 py-3.5 text-sm whitespace-nowrap ${col.className || ''}`}
                   >
                     {col.render ? col.render(row, rowIdx) : row[col.key]}
                   </td>
@@ -104,25 +104,26 @@ export const DataTable = ({
 
       {/* Pagination Bar */}
       {pagination && pagination.total > 0 && (
-        <div className="px-4 py-3 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div className="px-4 py-3 border-t border-slate-100 bg-slate-50/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <div>
-            Showing <span className="font-semibold text-slate-700">{startRecord}</span> to{' '}
-            <span className="font-semibold text-slate-700">{endRecord}</span> of{' '}
-            <span className="font-semibold text-slate-700">{pagination.total}</span> items
+            Showing <span className="font-semibold text-slate-700 tabular-nums">{startRecord}</span> to{' '}
+            <span className="font-semibold text-slate-700 tabular-nums">{endRecord}</span> of{' '}
+            <span className="font-semibold text-slate-700 tabular-nums">{pagination.total}</span> items
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               disabled={pagination.page <= 1}
               onClick={() => pagination.onPageChange(pagination.page - 1)}
-              className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors shadow-2xs font-medium"
               aria-label="Previous page"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>Previous</span>
             </button>
 
-            <span className="px-2 font-medium text-slate-700">
+            <span className="px-2 font-medium text-slate-700 tabular-nums">
               Page {pagination.page} of {pagination.totalPages || 1}
             </span>
 
@@ -130,10 +131,11 @@ export const DataTable = ({
               type="button"
               disabled={pagination.page >= (pagination.totalPages || 1)}
               onClick={() => pagination.onPageChange(pagination.page + 1)}
-              className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors shadow-2xs font-medium"
               aria-label="Next page"
             >
-              <ChevronRight className="w-4 h-4" />
+              <span>Next</span>
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>

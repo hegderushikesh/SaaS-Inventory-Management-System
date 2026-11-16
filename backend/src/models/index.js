@@ -3,6 +3,7 @@ const Organization = require('./Organization');
 const OrganizationSetting = require('./OrganizationSetting');
 const User = require('./User');
 const Product = require('./Product');
+const StockMovement = require('./StockMovement');
 
 // --- Associations ---
 
@@ -39,10 +40,44 @@ OrganizationSetting.belongsTo(Organization, {
   as: 'organization'
 });
 
+// Organization <-> StockMovement (1:N)
+Organization.hasMany(StockMovement, {
+  foreignKey: 'organization_id',
+  as: 'stock_movements',
+  onDelete: 'CASCADE'
+});
+StockMovement.belongsTo(Organization, {
+  foreignKey: 'organization_id',
+  as: 'organization'
+});
+
+// Product <-> StockMovement (1:N)
+Product.hasMany(StockMovement, {
+  foreignKey: 'product_id',
+  as: 'stock_movements',
+  onDelete: 'CASCADE'
+});
+StockMovement.belongsTo(Product, {
+  foreignKey: 'product_id',
+  as: 'product'
+});
+
+// User <-> StockMovement (1:N)
+User.hasMany(StockMovement, {
+  foreignKey: 'created_by',
+  as: 'stock_movements',
+  onDelete: 'SET NULL'
+});
+StockMovement.belongsTo(User, {
+  foreignKey: 'created_by',
+  as: 'creator'
+});
+
 module.exports = {
   sequelize,
   Organization,
   OrganizationSetting,
   User,
-  Product
+  Product,
+  StockMovement
 };
