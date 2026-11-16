@@ -83,6 +83,14 @@ app.use('/api/settings', settingsRoutes);
 const stockMovementRoutes = require('./routes/stockMovementRoutes');
 app.use('/api/stock-movements', stockMovementRoutes);
 
+// Supplier routes
+const supplierRoutes = require('./routes/supplierRoutes');
+app.use('/api/suppliers', supplierRoutes);
+
+// Purchase Order routes
+const purchaseOrderRoutes = require('./routes/purchaseOrderRoutes');
+app.use('/api/purchase-orders', purchaseOrderRoutes);
+
 // App-level 404 & error handlers
 app.use(notFoundHandler);
 app.use(errorHandler);

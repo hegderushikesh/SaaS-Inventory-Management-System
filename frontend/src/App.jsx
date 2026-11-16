@@ -13,6 +13,7 @@ import { SignupPage } from './pages/auth/SignupPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ProductsPage } from './pages/ProductsPage';
 import { StockMovementsPage } from './pages/StockMovementsPage';
+import { SuppliersPage } from './pages/SuppliersPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 const queryClient = new QueryClient({
@@ -49,6 +50,7 @@ export default function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/stock-movements" element={<StockMovementsPage />} />
+                <Route path="/suppliers" element={<SuppliersPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
               </Route>
             </Route>

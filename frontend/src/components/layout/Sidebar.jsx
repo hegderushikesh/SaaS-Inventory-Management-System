@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   Package,
   ArrowLeftRight,
+  Truck,
   Settings,
   LogOut,
   X,
@@ -43,6 +44,7 @@ export const Sidebar = ({
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Products', path: '/products', icon: Package },
     { name: 'Stock Movements', path: '/stock-movements', icon: ArrowLeftRight },
+    { name: 'Suppliers', path: '/suppliers', icon: Truck },
     { name: 'Settings', path: '/settings', icon: Settings }
   ];
 
