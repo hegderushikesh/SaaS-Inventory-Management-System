@@ -1,0 +1,19 @@
+# Backend environment variables and secrets
+.env
+.env.*
+!.env.example
+*.env.local
+
+# Node dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
