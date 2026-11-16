@@ -71,6 +71,14 @@ app.use('/api/auth', authRoutes);
 const productRoutes = require('./routes/productRoutes');
 app.use('/api/products', productRoutes);
 
+// Dashboard routes
+const dashboardRoutes = require('./routes/dashboardRoutes');
+app.use('/api/dashboard', dashboardRoutes);
+
+// Organization Settings routes
+const settingsRoutes = require('./routes/settingsRoutes');
+app.use('/api/settings', settingsRoutes);
+
 // App-level 404 & error handlers
 app.use(notFoundHandler);
 app.use(errorHandler);
